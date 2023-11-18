@@ -17,6 +17,10 @@ tauri = { version = "1.5", features = [ "system-tray", "shell-open"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 chrono = { version = "0.4.31" }
+winapi = { version = "0.3.9", features = ["processsnapshot", "processenv", "processthreadsapi", "libloaderapi", "winerror", "winbase", "memoryapi", "handleapi", "tlhelp32", "impl-default"] }
+rand = { version = "0.8.5", features = ["std"] }
+nalgebra = {version = "0.32.3" }
+uuid = { version = "1.5.0", features = ["v4"] }
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

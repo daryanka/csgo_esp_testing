@@ -42,9 +42,10 @@
         "fullscreen": true,
         "resizable": false,
         "alwaysOnTop": true,
-        "skipTaskbar": true,
+        "skipTaskbar": false,
         "transparent": true,
         "decorations": true,
+        "title": "Overlay",
         "url": "http://localhost:8083/overlay",
         "closable": false,
         "hiddenTitle": true

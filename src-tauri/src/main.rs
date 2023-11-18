@@ -5,6 +5,7 @@ mod csgo;
 
 use std::sync::Arc;
 
+use csgo::ScreenAndDynamicOffsets;
 use tauri::{
     async_runtime::{self, RwLock},
     AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu,
@@ -13,7 +14,11 @@ use tauri::{
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
-async fn start(state: tauri::State<'_, AppStateType>, app_handle: AppHandle) -> Result<(), ()> {
+async fn start(
+    state: tauri::State<'_, AppStateType>,
+    app_handle: AppHandle,
+    data: ScreenAndDynamicOffsets,
+) -> Result<(), ()> {
     {
         let mut state = state.0.write().await;
 
@@ -25,7 +30,7 @@ async fn start(state: tauri::State<'_, AppStateType>, app_handle: AppHandle) -> 
 
     let state = AppStateType(state.0.clone());
     async_runtime::spawn(async move {
-        csgo::start(state, app_handle).await;
+        csgo::start(state, app_handle, data).await;
     });
 
     Ok(())
