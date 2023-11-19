@@ -2,14 +2,11 @@ use crate::offsets_generator::builder::{FileBuilder, FileBuilderEnum};
 
 use anyhow::Result;
 
-use chrono::Utc;
-
 pub use interfaces::dump_interfaces;
 pub use offsets::dump_offsets;
 pub use schemas::dump_schemas;
 
 use std::collections::BTreeMap;
-use std::io::Write;
 
 pub mod interfaces;
 pub mod offsets;
@@ -50,18 +47,11 @@ pub type Entries = BTreeMap<String, EntriesContainer>;
 ///
 /// * `builder` - A mutable reference to the `FileBuilderEnum`.
 /// * `entries` - A reference to the `Entries` struct.
-/// * `file_path` - A string slice representing the path to the file.
-/// * `file_name` - A string slice representing the name of the file.
 ///
 /// # Returns
 ///
 /// * `Result<()>` - A `Result` indicating the outcome of the operation.
-pub fn generate_file(
-    builder: &mut FileBuilderEnum,
-    entries: &Entries,
-    file_path: &str,
-    file_name: &str,
-) -> Result<()> {
+pub fn generate_file(builder: &mut FileBuilderEnum, entries: &Entries) -> Result<()> {
     if entries.is_empty() {
         return Ok(());
     }
@@ -98,13 +88,8 @@ pub fn generate_file(
 /// # Returns
 ///
 /// * `Result<()>` - A `Result` indicating the outcome of the operation.
-pub fn generate_files(
-    builders: &mut [FileBuilderEnum],
-    entries: &Entries,
-    file_path: &str,
-    file_name: &str,
-) -> Result<()> {
+pub fn generate_files(builders: &mut [FileBuilderEnum], entries: &Entries) -> Result<()> {
     builders
         .iter_mut()
-        .try_for_each(|builder| generate_file(builder, entries, file_path, file_name))
+        .try_for_each(|builder| generate_file(builder, entries))
 }

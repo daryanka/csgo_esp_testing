@@ -50,15 +50,15 @@ pub fn get_offsets(
     let all = !(interfaces || offsets || schemas);
 
     if schemas || all {
-        dump_schemas(&mut process, &mut builders, &output, indent)?;
+        dump_schemas(&mut process, &mut builders, indent)?;
     }
 
     if interfaces || all {
-        dump_interfaces(&mut process, &mut builders, &output, indent)?;
+        dump_interfaces(&mut process, &mut builders, indent)?;
     }
 
     if offsets || all {
-        dump_offsets(&mut process, &mut builders, &output, indent)?;
+        dump_offsets(&mut process, &mut builders, indent)?;
     }
 
     Ok(())
@@ -76,11 +76,7 @@ pub fn get_offsets(
 /// * `Err(&'static str)` - If the extension is invalid, returns an error message.
 fn parse_extension(extension: &str) -> Result<FileBuilderEnum, &'static str> {
     match extension {
-        ".cs" => Ok(FileBuilderEnum::CSharpFileBuilder(CSharpFileBuilder)),
-        ".hpp" => Ok(FileBuilderEnum::CppFileBuilder(CppFileBuilder)),
         ".json" => Ok(FileBuilderEnum::JsonFileBuilder(JsonFileBuilder::default())),
-        ".py" => Ok(FileBuilderEnum::PythonFileBuilder(PythonFileBuilder)),
-        ".rs" => Ok(FileBuilderEnum::RustFileBuilder(RustFileBuilder)),
         _ => Err("Invalid extension"),
     }
 }

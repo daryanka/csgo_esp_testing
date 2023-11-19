@@ -5,7 +5,6 @@ use crate::offsets_generator::util::{Address, Process};
 
 use anyhow::Result;
 
-
 use std::ffi::c_char;
 use std::mem::offset_of;
 
@@ -94,7 +93,6 @@ impl InterfaceNode {
 pub fn dump_interfaces(
     process: &Process,
     builders: &mut Vec<FileBuilderEnum>,
-    file_path: &str,
     indent: usize,
 ) -> Result<()> {
     let mut entries = Entries::new();
@@ -129,7 +127,7 @@ pub fn dump_interfaces(
         }
     }
 
-    generate_files(builders, &entries, file_path, "interfaces")?;
+    generate_files(builders, &entries)?;
 
     Ok(())
 }

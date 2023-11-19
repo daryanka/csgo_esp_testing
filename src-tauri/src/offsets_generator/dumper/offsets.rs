@@ -95,7 +95,7 @@ pub fn dump_offsets(
         });
     }
 
-    generate_files(builders, &entries, file_path, "offsets")?;
+    generate_files(builders, &entries)?;
 
     Ok(())
 }

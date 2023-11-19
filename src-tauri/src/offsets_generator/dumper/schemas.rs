@@ -21,7 +21,6 @@ use anyhow::Result;
 pub fn dump_schemas(
     process: &Process,
     builders: &mut Vec<FileBuilderEnum>,
-    file_path: &str,
     indent: usize,
 ) -> Result<()> {
     let schema_system = SchemaSystem::new(&process)?;
@@ -52,7 +51,7 @@ pub fn dump_schemas(
             }
         }
 
-        generate_files(builders, &entries, file_path, &module_name)?;
+        generate_files(builders, &entries)?;
     }
 
     Ok(())
