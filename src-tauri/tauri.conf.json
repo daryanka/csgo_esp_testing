@@ -20,7 +20,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "v1",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -42,11 +42,11 @@
         "fullscreen": true,
         "resizable": false,
         "alwaysOnTop": true,
-        "skipTaskbar": false,
+        "skipTaskbar": true,
         "transparent": true,
         "decorations": true,
         "title": "Overlay",
-        "url": "http://localhost:8083/overlay",
+        "url": "/overlay",
         "closable": false,
         "hiddenTitle": true
       },
@@ -63,7 +63,7 @@
         "skipTaskbar": false,
         "transparent": false,
         "decorations": true,
-        "url": "http://localhost:8083/settings"
+        "url": "/settings"
       }
     ]
   }

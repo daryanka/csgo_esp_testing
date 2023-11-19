@@ -9,7 +9,6 @@ import {
 } from "./helpers";
 import { invoke } from "@tauri-apps/api/tauri";
 import { emit, listen } from "@tauri-apps/api/event";
-import { z } from "zod";
 
 const Settings = () => {
   const [hasStarted, setHasStarted] = useState(false);

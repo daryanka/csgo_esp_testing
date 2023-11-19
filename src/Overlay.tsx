@@ -50,7 +50,7 @@ function Overlay() {
   const [settings, setSettings] = useState<SettingsInterface>(
     makeDefaultSettings()
   );
-  const [data, setData] = useState<GameData>({
+  const [rawData, setData] = useState<GameData>({
     players: [],
   });
 
@@ -70,6 +70,20 @@ function Overlay() {
     listenerToPlayerData();
     listenToSettings();
   }, []);
+
+  const data = useMemo((): GameData => {
+    return {
+      players: rawData.players.filter((player) => {
+        if (player.isEnemy && settings.showEnemies) {
+          return true;
+        }
+        if (!player.isEnemy && settings.showTeammates) {
+          return true;
+        }
+        return false;
+      }),
+    };
+  }, [settings, rawData]);
 
   return (
     <div className={"overlay-page"}>

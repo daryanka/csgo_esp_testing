@@ -31,6 +31,7 @@ async fn stop_all(app_state: AppStateType, app_handle: AppHandle) {
     let mut state = app_state.0.write().await;
     state.is_reading_memory = false;
     let _ = app_handle.emit_all("app_state_change", false);
+    let _ = app_handle.emit_all("player_data", GameDataTransfer { players: vec![] });
 }
 
 pub async fn start(
@@ -64,6 +65,7 @@ pub async fn start(
             let state = app_state.0.read().await;
             if !state.is_reading_memory {
                 let _ = app_handle.emit_all("app_state_change", false);
+                let _ = app_handle.emit_all("player_data", GameDataTransfer { players: vec![] });
                 return;
             }
         }
@@ -83,24 +85,6 @@ pub async fn start(
     }
 }
 // const ENGINE_DLL: &str = "engine.dll";
-
-#[derive(Debug, Clone, PartialEq)]
-enum Mode {
-    AllPlayers,
-    EnemyOnly,
-    Disabled,
-}
-
-impl Into<String> for Mode {
-    fn into(self) -> String {
-        match self {
-            Mode::AllPlayers => "All Players".to_string(),
-            Mode::EnemyOnly => "Enemy Only".to_string(),
-            Mode::Disabled => "Disabled".to_string(),
-        }
-    }
-}
-
 #[derive(serde::Serialize, serde::Deserialize, Default, Clone)]
 pub struct GameDataTransfer {
     players: Vec<PlayerDataTransfer>,
