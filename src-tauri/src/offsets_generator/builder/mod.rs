@@ -3,6 +3,8 @@ pub use json_file_builder::JsonFileBuilder;
 
 pub use std::io::{Result, Write};
 
+use self::file_builder::OffsetData;
+
 pub mod file_builder;
 pub mod json_file_builder;
 
@@ -38,7 +40,7 @@ impl FileBuilder for FileBuilderEnum {
             .write_variable(name, value, comment, indentation)
     }
 
-    fn print(&mut self) -> () {
+    fn print(&mut self) -> Option<OffsetData> {
         self.as_mut().print()
     }
 }

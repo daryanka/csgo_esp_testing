@@ -1,4 +1,22 @@
-use std::io::{Result, Write};
+use std::{
+    collections::HashMap,
+    io::{Result, Write},
+};
+
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize)]
+pub struct OffsetData(HashMap<String, DataLayer>);
+
+#[derive(Serialize, Deserialize)]
+pub struct DataLayer {
+    pub data: HashMap<String, ValueLayer>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct ValueLayer {
+    pub value: usize,
+}
 
 /// A trait that defines the file builder operations.
 pub trait FileBuilder {
@@ -61,5 +79,5 @@ pub trait FileBuilder {
         indentation: Option<usize>,
     ) -> Result<()>;
 
-    fn print(&mut self) -> ();
+    fn print(&mut self) -> Option<OffsetData>;
 }

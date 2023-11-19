@@ -28,6 +28,7 @@ pub fn get_offsets(
         schemas,
     }: Args,
 ) -> Result<()> {
+    let t1 = std::time::Instant::now();
     let mut builders: Vec<FileBuilderEnum> =
         vec![FileBuilderEnum::JsonFileBuilder(JsonFileBuilder::default())];
     let mut process = Process::new("cs2.exe")?;
@@ -49,7 +50,9 @@ pub fn get_offsets(
         dump_offsets(&mut process, &mut builders, indent)?;
     }
 
+    println!("t1: {:?}", t1.elapsed());
     builders[0].print();
+    println!("t2: {:?}", t1.elapsed());
 
     Ok(())
 }

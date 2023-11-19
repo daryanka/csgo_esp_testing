@@ -1,3 +1,4 @@
+use super::file_builder::OffsetData;
 use super::FileBuilder;
 
 use serde::Serialize;
@@ -66,9 +67,20 @@ impl FileBuilder for JsonFileBuilder {
         Ok(())
     }
 
-    fn print(&mut self) {
-        let json_str = serde_json::to_string_pretty(&self.data).unwrap();
-        let now = chrono::Utc::now().timestamp_millis();
-        std::fs::write(format!("offsets_{}.json", now), json_str).unwrap();
+    fn print(&mut self) -> Option<OffsetData> {
+        let json_str = match serde_json::to_string(&self.data) {
+            Ok(json_str) => json_str,
+            Err(_) => {
+                return None;
+            }
+        };
+        let data: OffsetData = match serde_json::from_str(&json_str) {
+            Ok(data) => data,
+            Err(_) => {
+                println!("Error: Failed to parse JSON string");
+                return None;
+            }
+        };
+        Some(data)
     }
 }

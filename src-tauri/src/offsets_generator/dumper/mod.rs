@@ -78,8 +78,6 @@ pub fn generate_file(builder: &mut FileBuilderEnum, entries: &Entries) -> Result
 ///
 /// * `builders` - A mutable slice of `FileBuilderEnum` objects.
 /// * `entries` - A reference to the `Entries` struct.
-/// * `file_path` - A string slice representing the path to the file.
-/// * `file_name` - A string slice representing the name of the file.
 ///
 /// # Returns
 ///
