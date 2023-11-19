@@ -45,7 +45,7 @@ body {
     display: block;
     position: absolute;
     font-weight: bold;
-    opacity: 0.8;
+    opacity: var(--main-opacity);
     width: 100vw;
   }
 

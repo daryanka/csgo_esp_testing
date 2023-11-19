@@ -143,7 +143,7 @@ const Settings = () => {
               <input
                 id={s.label}
                 type="checkbox"
-                checked={settings[s.objKey]}
+                checked={settings[s.objKey] as boolean}
                 onChange={(e) =>
                   setSettings((prev) => ({
                     ...prev,
@@ -155,6 +155,22 @@ const Settings = () => {
           );
         })}
       </div>
+
+      <label>Opacity</label>
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value={settings.opacity * 100}
+        id="myRange"
+        onChange={(e) => {
+          const newOpp = e.target.valueAsNumber / 100;
+          setSettings((prev) => ({
+            ...prev,
+            opacity: newOpp,
+          }));
+        }}
+      />
 
       <div className="config-area">
         <textarea

@@ -63,6 +63,10 @@ function Overlay() {
   const listenToSettings = async () => {
     await listen("settings_changed", (data) => {
       setSettings(data.payload as SettingsInterface);
+      document.documentElement.style.setProperty(
+        "--main-opacity",
+        `${(data.payload as SettingsInterface).opacity}`
+      );
     });
   };
 

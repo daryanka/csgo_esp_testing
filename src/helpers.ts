@@ -73,6 +73,7 @@ export interface SettingsInterface {
   showCrosshair: boolean;
   showTeammates: boolean;
   showEnemies: boolean;
+  opacity: number;
 }
 
 export const makeDefaultSettings = (): SettingsInterface => ({
@@ -83,4 +84,5 @@ export const makeDefaultSettings = (): SettingsInterface => ({
   showCrosshair: true,
   showTeammates: true,
   showEnemies: true,
+  opacity: 0.3,
 });
