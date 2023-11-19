@@ -68,7 +68,7 @@ impl FileBuilder for JsonFileBuilder {
 
     fn print(&mut self) {
         let json_str = serde_json::to_string_pretty(&self.data).unwrap();
-        let temp = uuid::Uuid::new_v4().to_string();
-        std::fs::write(format!("offsets_{}.json", temp), json_str).unwrap();
+        let now = chrono::Utc::now().timestamp_millis();
+        std::fs::write(format!("offsets_{}.json", now), json_str).unwrap();
     }
 }

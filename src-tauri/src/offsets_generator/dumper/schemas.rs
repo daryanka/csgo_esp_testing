@@ -26,8 +26,6 @@ pub fn dump_schemas(
     let schema_system = SchemaSystem::new(&process)?;
 
     for type_scope in schema_system.type_scopes()? {
-        let module_name = type_scope.module_name()?;
-
         let mut entries = Entries::new();
 
         for class in type_scope.classes()? {

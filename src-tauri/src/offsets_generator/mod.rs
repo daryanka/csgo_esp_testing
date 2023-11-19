@@ -49,6 +49,8 @@ pub fn get_offsets(
         dump_offsets(&mut process, &mut builders, indent)?;
     }
 
+    builders[0].print();
+
     Ok(())
 }
 

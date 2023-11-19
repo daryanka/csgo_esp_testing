@@ -56,9 +56,7 @@ pub fn generate_file(builder: &mut FileBuilderEnum, entries: &Entries) -> Result
         return Ok(());
     }
 
-    let len = entries.len();
-
-    for (i, pair) in entries.iter().enumerate() {
+    for (_, pair) in entries.iter().enumerate() {
         builder.write_namespace(pair.0, pair.1.comment.as_deref())?;
 
         pair.1.data.iter().try_for_each(|entry| {
@@ -70,8 +68,6 @@ pub fn generate_file(builder: &mut FileBuilderEnum, entries: &Entries) -> Result
             )
         })?;
     }
-
-    builder.print();
 
     Ok(())
 }
