@@ -61,5 +61,5 @@ pub trait FileBuilder {
         indentation: Option<usize>,
     ) -> Result<()>;
 
-    fn print(&self) -> ();
+    fn print(&mut self) -> ();
 }

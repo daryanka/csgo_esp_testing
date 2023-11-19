@@ -30,6 +30,12 @@ async fn start(
         state.is_reading_memory = true;
     }
 
+    let _ = offsets_generator::get_offsets(offsets_generator::Args {
+        interfaces: true,
+        offsets: true,
+        schemas: true,
+    });
+
     let state = AppStateType(state.0.clone());
     async_runtime::spawn(async move {
         csgo::start(state, app_handle, data).await;

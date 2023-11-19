@@ -6,9 +6,6 @@ use builder::*;
 
 use dumper::{dump_interfaces, dump_offsets, dump_schemas};
 
-use std::fs;
-use std::time::Instant;
-
 use util::Process;
 
 mod builder;
@@ -18,14 +15,10 @@ mod sdk;
 mod util;
 
 /// Command line arguments for the program.
-struct Args {
-    interfaces: bool,
-    offsets: bool,
-    schemas: bool,
-    builders: Vec<FileBuilderEnum>,
-    indent: usize,
-    output: String,
-    verbose: bool,
+pub struct Args {
+    pub interfaces: bool,
+    pub offsets: bool,
+    pub schemas: bool,
 }
 
 pub fn get_offsets(
@@ -33,17 +26,12 @@ pub fn get_offsets(
         interfaces,
         offsets,
         schemas,
-        mut builders,
-        indent,
-        output,
-        verbose,
     }: Args,
 ) -> Result<()> {
-    let now = Instant::now();
-
-    fs::create_dir_all(&output)?;
-
+    let mut builders: Vec<FileBuilderEnum> =
+        vec![FileBuilderEnum::JsonFileBuilder(JsonFileBuilder::default())];
     let mut process = Process::new("cs2.exe")?;
+    let indent = 4;
 
     process.initialize()?;
 

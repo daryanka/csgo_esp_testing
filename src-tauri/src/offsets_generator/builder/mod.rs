@@ -38,7 +38,7 @@ impl FileBuilder for FileBuilderEnum {
             .write_variable(name, value, comment, indentation)
     }
 
-    fn print(&self) -> () {
+    fn print(&mut self) -> () {
         self.as_mut().print()
     }
 }
