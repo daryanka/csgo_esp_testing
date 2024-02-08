@@ -6,7 +6,7 @@ Credit to https://github.com/a2x/cs2-dumper for the offsets generator.
 
 # Demo
 
-![](https://daryan-public.s3.eu-west-2.amazonaws.com/random/csgo_testing.mp4)
+[![Demo]()](https://daryan-public.s3.eu-west-2.amazonaws.com/random/csgo_testing.mp4 "Link Title")
 
 ## Motivation
 
