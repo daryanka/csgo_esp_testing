@@ -6,7 +6,9 @@ Credit to https://github.com/a2x/cs2-dumper for the offsets generator.
 
 # Demo
 
-https://daryan-public.s3.eu-west-2.amazonaws.com/random/csgo_testing.mp4
+
+https://github.com/daryanka/csgo_esp_testing/assets/34768935/12d8b59c-712c-4e9c-a2fc-22ad2bd886b8
+
 
 ## Motivation
 
