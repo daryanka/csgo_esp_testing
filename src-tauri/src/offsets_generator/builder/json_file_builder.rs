@@ -67,7 +67,7 @@ impl FileBuilder for JsonFileBuilder {
         Ok(())
     }
 
-    fn print(&mut self) -> Option<OffsetData> {
+    fn generate(&mut self) -> Option<OffsetData> {
         let json_str = match serde_json::to_string(&self.data) {
             Ok(json_str) => json_str,
             Err(_) => {

@@ -40,8 +40,8 @@ impl FileBuilder for FileBuilderEnum {
             .write_variable(name, value, comment, indentation)
     }
 
-    fn print(&mut self) -> Option<OffsetData> {
-        self.as_mut().print()
+    fn generate(&mut self) -> Option<OffsetData> {
+        self.as_mut().generate()
     }
 }
 

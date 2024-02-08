@@ -134,10 +134,12 @@ const Settings = () => {
         </button>
       )}
 
+      <LoadOffsetsButton setOffsets={setOffsetsInput} />
+
       <div className="checkbox-area">
         {settingsArr.map((s) => {
           return (
-            <div>
+            <div key={s.label}>
               <label htmlFor={s.label}>{s.label}</label>
 
               <input
@@ -179,6 +181,50 @@ const Settings = () => {
         />
         {configError && <pre className="errors">{configError}</pre>}
       </div>
+    </div>
+  );
+};
+
+const LoadOffsetsButton = ({
+  setOffsets,
+}: {
+  setOffsets: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const generate_offsets = async () => {
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const res =
+        await invoke<Omit<OffsetsInterface, "height" | "width">>(
+          "generate_offsets"
+        );
+      setOffsets((prev) => {
+        try {
+          const old = JSON.parse(prev);
+          const newData = {
+            ...old,
+            ...res,
+          };
+          return JSON.stringify(newData, null, 2);
+        } catch (e) {
+          return JSON.stringify(res, null, 2);
+        }
+      });
+      setIsLoading(false);
+    } catch (e) {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={generate_offsets}>
+        {isLoading ? "Loading, this may take 20 seconds" : "Load Offsets"}
+      </button>
     </div>
   );
 };

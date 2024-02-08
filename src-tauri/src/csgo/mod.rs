@@ -92,17 +92,30 @@ pub struct GameDataTransfer {
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ScreenAndDynamicOffsets {
-    width: usize,
-    height: usize,
-    dwEntityList: usize,
-    dwLocalPlayerController: usize,
-    dwViewMatrix: usize,
-    m_iHealth: usize,
-    m_iTeamNum: usize,
-    m_hPlayerPawn: usize,
-    m_vecAbsOrigin: usize,
-    m_vOldOrigin: usize,
-    p_weaponClipping: usize,
+    pub width: usize,
+    pub height: usize,
+    pub dwEntityList: usize,
+    pub dwLocalPlayerController: usize,
+    pub dwViewMatrix: usize,
+    pub m_iHealth: usize,
+    pub m_iTeamNum: usize,
+    pub m_hPlayerPawn: usize,
+    pub m_vecAbsOrigin: usize,
+    pub m_vOldOrigin: usize,
+    pub m_pClippingWeapon: usize,
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
+pub struct DynamicOffsets {
+    pub dwEntityList: usize,
+    pub dwLocalPlayerController: usize,
+    pub dwViewMatrix: usize,
+    pub m_iHealth: usize,
+    pub m_iTeamNum: usize,
+    pub m_hPlayerPawn: usize,
+    pub m_vecAbsOrigin: usize,
+    pub m_vOldOrigin: usize,
+    pub m_pClippingWeapon: usize,
 }
 
 #[derive(Debug, Clone)]
@@ -284,7 +297,7 @@ fn get_weapon(
     let _ = read_process_memory(
         proc,
         &mut weapon_addr,
-        player_pawn + offsets_config.p_weaponClipping,
+        player_pawn + offsets_config.m_pClippingWeapon,
     );
     if weapon_addr == 0 {
         return "".to_string();

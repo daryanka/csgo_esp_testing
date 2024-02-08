@@ -6,7 +6,7 @@ export interface OffsetsInterface {
   dwEntityList: number;
   dwLocalPlayerController: number;
   dwViewMatrix: number;
-  p_weaponClipping: number;
+  m_pClippingWeapon: number;
   m_iHealth: number;
   m_iTeamNum: number;
   m_hPlayerPawn: number;
@@ -25,7 +25,7 @@ export const offsetsValidationSchema = z.object({
   dwEntityList: z.number().positive(),
   dwLocalPlayerController: z.number().positive(),
   dwViewMatrix: z.number().positive(),
-  p_weaponClipping: z.number().positive(),
+  m_pClippingWeapon: z.number().positive(),
   m_iHealth: z.number().positive(),
   m_iTeamNum: z.number().positive(),
   m_hPlayerPawn: z.number().positive(),
@@ -46,7 +46,7 @@ export const getStoredSettings = (): LocalStorageInterface => {
       dwEntityList: 0,
       dwLocalPlayerController: 0,
       dwViewMatrix: 0,
-      p_weaponClipping: 0,
+      m_pClippingWeapon: 0,
       m_iHealth: 0,
       m_iTeamNum: 0,
       m_hPlayerPawn: 0,

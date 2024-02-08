@@ -8,6 +8,8 @@ use dumper::{dump_interfaces, dump_offsets, dump_schemas};
 
 use util::Process;
 
+use crate::csgo::DynamicOffsets;
+
 mod builder;
 mod config;
 mod dumper;
@@ -27,8 +29,7 @@ pub fn get_offsets(
         offsets,
         schemas,
     }: Args,
-) -> Result<()> {
-    let t1 = std::time::Instant::now();
+) -> Result<DynamicOffsets> {
     let mut builders: Vec<FileBuilderEnum> =
         vec![FileBuilderEnum::JsonFileBuilder(JsonFileBuilder::default())];
     let mut process = Process::new("cs2.exe")?;
@@ -50,11 +51,12 @@ pub fn get_offsets(
         dump_offsets(&mut process, &mut builders, indent)?;
     }
 
-    println!("t1: {:?}", t1.elapsed());
-    builders[0].print();
-    println!("t2: {:?}", t1.elapsed());
-
-    Ok(())
+    let res = builders[0].generate();
+    if let Some(offset_data) = res {
+        return Ok(offset_data.get_dynamic_offsets());
+    } else {
+        Err(anyhow::anyhow!("Failed to generate offsets"))
+    }
 }
 
 /// Parses the given file extension and returns the corresponding `FileBuilderEnum`.

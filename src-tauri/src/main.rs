@@ -7,7 +7,7 @@ mod offsets_generator;
 
 use std::sync::Arc;
 
-use csgo::ScreenAndDynamicOffsets;
+use csgo::{DynamicOffsets, ScreenAndDynamicOffsets};
 use tauri::{
     async_runtime::{self, RwLock},
     AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu,
@@ -30,12 +30,6 @@ async fn start(
         state.is_reading_memory = true;
     }
 
-    let _ = offsets_generator::get_offsets(offsets_generator::Args {
-        interfaces: true,
-        offsets: true,
-        schemas: true,
-    });
-
     let state = AppStateType(state.0.clone());
     async_runtime::spawn(async move {
         csgo::start(state, app_handle, data).await;
@@ -57,6 +51,20 @@ async fn stop(state: tauri::State<'_, AppStateType>) -> Result<(), ()> {
     std::thread::sleep(std::time::Duration::from_millis(500));
 
     Ok(())
+}
+
+#[tauri::command]
+async fn generate_offsets() -> Result<DynamicOffsets, ()> {
+    let generated_offsets = offsets_generator::get_offsets(offsets_generator::Args {
+        interfaces: true,
+        offsets: true,
+        schemas: true,
+    });
+
+    match generated_offsets {
+        Ok(offsets) => Ok(offsets),
+        Err(_) => Err(()),
+    }
 }
 
 pub struct AppStateType(Arc<RwLock<MyAppState>>);
@@ -119,7 +127,7 @@ fn main() {
             }
             _ => {}
         })
-        .invoke_handler(tauri::generate_handler![start, stop])
+        .invoke_handler(tauri::generate_handler![start, stop, generate_offsets])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
